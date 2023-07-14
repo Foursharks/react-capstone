@@ -23,7 +23,8 @@ module.exports = {
             const {username, password} = req.body
             let foundUser = await User.findOne({where: {username}})
             if (foundUser) {
-                res.status(400).send('cannot create user')
+                // how to send an alert to the front end? 
+                res.status(400).send('username already exists')
             } else {
                 const salt = bcrypt.genSaltSync(10)
                 const hash = bcrypt.hashSync(password, salt)

@@ -27,15 +27,18 @@ app.post('/login', login)
 // app.get('/posts', getAllPosts)
 
 // CRUD POSTS - auth required
-app.get('/usercards/:userId', getCurrentUserCards)
+app.get('/cards/:userId', getCurrentUserCards)
 app.post('/cards', isAuthenticated, addCard)
 app.put('/cards/:id', isAuthenticated, editCard)
 app.delete('/cards/:id', isAuthenticated, deleteCard)
 
-// the force: true is for development -- it DROPS tables!!!
-sequelize.sync({ force: true })
+// user/sequelize.sync creates the table if it doesn't exist, and does nothing if it already exists
+sequelize.sync()
 // sequelize.sync()
     .then(() => {
         app.listen(PORT, () => console.log(`db sync successful & server running on port ${PORT}`))
     })
     .catch(err => console.log(err))
+
+
+    

@@ -5,7 +5,7 @@ module.exports = {
     addCard: async (req, res) => {
         try {
             const {question, answer, userId} = req.body
-            await Post.create({question, answer, userId})
+            await Card.create({question, answer, userId})
             res.sendStatus(200)
         } catch (error) {
             console.log('ERROR---addCard')
@@ -22,7 +22,7 @@ module.exports = {
                     required: true,
                     attributes: [`username`]
                 }]})
-            res.status(200).send(posts)
+            res.status(200).send(cards)
         } catch (error) {
             console.log('ERROR ----getCurrentUserCards')
             console.log(error)
@@ -33,13 +33,11 @@ module.exports = {
     editCard: async (req, res) => {
         try {
             const {id} = req.params
-            const {status} = req.body
-            await Card.update({privateStatus: status}, {
-                where: {id: +id}
-            })
+            await Card.update({question, answer, 
+                where: {id: +id} })
             res.sendStatus(200)
         } catch (error) {
-            console.log('ERROR IN getCurrentUserPosts')
+            console.log('ERROR IN update/edit card')
             console.log(error)
             res.sendStatus(400)
         }
@@ -51,7 +49,7 @@ module.exports = {
             await Card.destroy({where: {id: +id}})
             res.sendStatus(200)
         } catch (error) {
-            console.log('ERROR IN getCurrentUserPosts')
+            console.log('ERROR IN delete card')
             console.log(error)
             res.sendStatus(400)
         }

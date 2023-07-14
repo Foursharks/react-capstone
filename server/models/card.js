@@ -11,6 +11,8 @@ module.exports = {
             primaryKey: true
         },
         question: DataTypes.STRING,
-        answer: DataTypes.STRING
+        answer: DataTypes.STRING, 
+        corrects: DataTypes.INTEGER, 
+        incorrects: DataTypes.INTEGER
     })
 }

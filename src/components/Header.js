@@ -17,20 +17,23 @@ const Header = () => {
         <header className='header flex-row'>
             <div className='flex-row'>
                 <img src={logo} alt='study-greek-logo' className='logo'/>
-                <h2>Flashcard App</h2>
+                <h2>Header.js</h2>
             </div>
             <nav>
                 {
                     authCtx.token ? (
                         <ul className='main-nav'>
-                            <li>
+                            {/* <li>
                                 <NavLink style={styleActiveLink} to='/'>Home</NavLink>
+                            </li> */}
+                            <li>
+                                <NavLink style={styleActiveLink} to='profile'>Dashboard</NavLink>
                             </li>
                             <li>
-                                <NavLink style={styleActiveLink} to='profile'>Profile</NavLink>
+                                <NavLink style={styleActiveLink} to='form'>Add Card</NavLink>
                             </li>
                             <li>
-                                <NavLink style={styleActiveLink} to='form'>Add Post</NavLink>
+                                <NavLink style={styleActiveLink} to='study'>Study</NavLink>
                             </li>
                             <li>
                                 <button className='logout-btn' onClick={() => authCtx.logout()}>Logout</button>

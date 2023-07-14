@@ -22,20 +22,17 @@ const Auth = () => {
             password
         }
 
-        const url = 'https://socialmtn.devmountain.com'
-
-        axios.post(register ? `${url}/register` : `${url}/login`, body)
-            .then((res) => {
-                console.log('AFTER AUTH', res.data)
-                authCtx.login(res.data.token, res.data.exp, res.data.userId)
-            })
-            .catch(err => {
-                setMessage(err.response.data)
-                setDisplay('block')
-                setPassword('')
-                setUsername('')
-            })
-    }
+        axios.post(register ? `http://localhost:5050/register` : `http://localhost:5050/login`, body)
+        .then(({data}) => {
+           authCtx.login(data.token, data.exp, data.userId)
+           console.log('AFTER AUTH', data);
+        })
+        .catch((err) => {
+           setPassword('')
+           setUsername('');
+        });
+      }
+    
 
     return (
         <main>

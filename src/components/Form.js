@@ -15,7 +15,7 @@ const Form = () => {
     const handleSubmit = e => {
         e.preventDefault()
 
-        axios.post(`http://localhost:5050/card`, {question, answer, userId}, {
+        axios.post(`http://localhost:5050/cards`, {question, answer, userId}, {
             headers: {
                 authorization: token
             }
@@ -43,7 +43,7 @@ const Form = () => {
                     onChange={e => setAnswer(e.target.value)}
                     className='form-input add-card-input'
                 />
-                <button className='form-btn'>add card</button>
+                <button className='form-btn'>Update card</button>
             </form>
         </main>
     )
