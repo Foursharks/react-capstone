@@ -8,8 +8,10 @@ const Profile = () => {
   const { userId, token } = useContext(AuthContext);
 
   const [cards, setCards] = useState([]);
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
+  // const [question, setQuestion] = useState("");
+  // const [answer, setAnswer] = useState("");
+
+
   // set which card the user is going to edit
   const [selectedCard, setSelectedCard] = useState(null);
   //set whether the modal will be displayed or not
@@ -27,10 +29,10 @@ const Profile = () => {
     getUserCards();
   }, [getUserCards]);
 
-  const updateCard = (id) => {
+  const updateCard = (question, answer, cardId) => {
     axios
       .put(
-        `http://localhost:5052/cards/${id}`,
+        `http://localhost:5052/cards/${cardId}`,
         { question, answer },
         {
           headers: {
@@ -39,7 +41,7 @@ const Profile = () => {
         }
       )
       .then(() => {
-        getUserCards();
+        console.log('card updated');
       })
       .catch((err) => {
         console.log(err);
@@ -98,8 +100,8 @@ const Profile = () => {
       <h1>Dashboard</h1>
       <h3>Status of how many cards you created</h3>
       <h1>View all cards</h1>
-      {mappedCards}
       { isModalOpen && <Editmodal selectedCard={selectedCard} closeModal={closeModal} updateCard={updateCard} />}
+      {mappedCards}
     </main>
   );
 };

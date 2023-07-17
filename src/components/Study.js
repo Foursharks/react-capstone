@@ -78,7 +78,7 @@ const Study = () => {
       );
     });
 
-  return <main>{showCard}</main>;
+  return <main>{showCard}{showAnswer} </main>;
 };
 
 export default Study;
