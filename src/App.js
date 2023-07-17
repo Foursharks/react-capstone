@@ -11,11 +11,19 @@ import Study from './components/Study'
 
 import AuthContext from './store/authContext'
 
+//material ui 
+import Paper from '@mui/material/Paper';
+import { createTheme, ThemeProvider} from '@mui/material/styles';
+
+const lightTheme = createTheme({ palette: { mode: 'light' } });
+
+
 const App = () => {
   const authCtx = useContext(AuthContext)
 
   return (
-    <div className='app'>App.js
+    <Paper elevation={0}>
+      <ThemeProvider theme={lightTheme}>
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -25,7 +33,8 @@ const App = () => {
         <Route path='/study' element={authCtx.token ?<Study/> : <Navigate to='/auth'/>}/>
         <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
-    </div>
+      </ThemeProvider>
+    </Paper>
   )
 }
 

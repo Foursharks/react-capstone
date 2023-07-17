@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import AuthContext from "../store/authContext";
 
+//material ui
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+
 // This should show a bunch of cards, one at a time, that have less than 5 correct markings, in order of most incorrects. The cards should show the question, and a "show answer" button. "show answer" should show the answer. Then buttons should be displayed "correct" and "incorrect".
 // If the person selects "correct" it should update the cards table to increment 1 in the correct column, if the person selects "incorrect" it should increment 1 in the incorrect column of the cards table.
 
@@ -71,9 +76,9 @@ const Study = () => {
   const showCard = cards.filter((card) => card.corrects < 5).map((card) => {
       return (
         <div key={card.id} className="post-card">
-          <h2>Question: </h2>
-          <p>{card.question}</p>
-          <button onClick={(e) => showAnswer(card, e)}>show answer</button>
+          <Typography variant="h2">Question:</Typography>
+          <Typography variant="h3">{card.question}</Typography>
+          <Button variant="2" onClick={(e) => showAnswer(card, e)}>show answer</Button>
         </div>
       );
     });

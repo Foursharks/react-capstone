@@ -4,6 +4,13 @@ import axios from "axios";
 import AuthContext from "../store/authContext";
 import Editmodal from './Editmodal'
 
+//for material ui
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 const Profile = () => {
   const { userId, token } = useContext(AuthContext);
 
@@ -74,34 +81,36 @@ const Profile = () => {
 
   const mappedCards = cards.map((card) => {
     return (
-      <div key={card.id} className="post-card">
-        <h2>Question: </h2>
-        <p>{card.question}</p>
-        <h2>Answer: </h2>
-        <p>{card.answer}</p>
-        <div>
-          <button className="form-btn" onClick={(e) => showForm(card, e)}>
+      <Card variant="outlined" sx={{ minWidth: 275 }} key={card.id}>
+        <CardContent>
+        <Typography variant="h2">Question: </Typography>
+        <Typography variant="h3">{card.question}</Typography>
+        <Typography variant="h2">Answer: </Typography>
+        <Typography variant="h3">{card.answer}</Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" onClick={(e) => showForm(card, e)}>
             edit card
-          </button>
-          <button
-            className="form-btn"
-            style={{ marginLeft: 10 }}
+          </Button>
+          <Button size="small"
             onClick={() => deleteCard(card.id)}
           >
             delete card
-          </button>
-        </div>
-      </div>
+          </Button>
+        </CardActions>
+      </Card>
     );
   });
 
   return (
     <main>
-      <h1>Dashboard</h1>
-      <h3>Status of how many cards you created</h3>
-      <h1>View all cards</h1>
+      <Typography variant="h1">Dashboard</Typography>
+      <Typography variant="h3">Status of how many cards you created</Typography>
+      <Typography variant="h2">View all cards</Typography>
       { isModalOpen && <Editmodal selectedCard={selectedCard} closeModal={closeModal} updateCard={updateCard} />}
       {mappedCards}
+      
+      
     </main>
   );
 };

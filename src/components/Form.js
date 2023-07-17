@@ -4,6 +4,10 @@ import {useNavigate} from 'react-router-dom'
 
 import AuthContext from '../store/authContext'
 
+//material UI 
+import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
+
 const Form = () => {
     const {token, userId} = useContext(AuthContext)
     const navigate = useNavigate()
@@ -28,22 +32,23 @@ const Form = () => {
 
     return (
         <main>
+            
             <form className='form add-card-form' onSubmit={handleSubmit}>
-                <input 
+                <TextField id="outlined-basic"
                     type='text'
                     placeholder='question'
                     value={question}
                     onChange={e => setQuestion(e.target.value)}
-                    className='form-input add-card-input'
+                    
                 />
-                <textarea 
+                <TextField id="outlined-basic"
                     type='text'
                     placeholder='answer'
                     value={answer}
                     onChange={e => setAnswer(e.target.value)}
-                    className='form-input add-card-input'
+                    
                 />
-                <button className='form-btn'>Update card</button>
+                <Button variant="2">Add card</Button>
             </form>
         </main>
     )
