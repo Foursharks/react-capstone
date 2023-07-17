@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 import AuthContext from "../store/authContext";
+import Editmodal from './Editmodal'
 
 const Profile = () => {
   const { userId, token } = useContext(AuthContext);
@@ -9,6 +10,11 @@ const Profile = () => {
   const [cards, setCards] = useState([]);
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  // set which card the user is going to edit
+  const [selectedCard, setSelectedCard] = useState(null);
+  //set whether the modal will be displayed or not
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const getUserCards = useCallback(() => {
     axios
@@ -56,29 +62,13 @@ const Profile = () => {
   };
 
   const showForm = (card, e) => {
-    console.log("show form hit", card, e);
-    return (
-      <div>
-        <form className="form add-card-form" onSubmit={updateCard(card.id)}>
-          <input
-            type="text"
-            placeholder={card.question}
-            value={card.question}
-            onChange={(e) => setQuestion(e.target.value)}
-            className="form-input add-card-input"
-          />
-          <textarea
-            type="text"
-            placeholder={card.answer}
-            value={card.answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            className="form-input add-card-input"
-          />
-          <button className="form-btn">Update</button>
-        </form>
-      </div>
-    );
+    console.log("show form hit", card, e)
+    setSelectedCard(card);
+    setIsModalOpen(true);
+
   };
+
+  const closeModal = () => setIsModalOpen(false);
 
   const mappedCards = cards.map((card) => {
     return (
@@ -109,6 +99,7 @@ const Profile = () => {
       <h3>Status of how many cards you created</h3>
       <h1>View all cards</h1>
       {mappedCards}
+      { isModalOpen && <Editmodal selectedCard={selectedCard} closeModal={closeModal} updateCard={updateCard} />}
     </main>
   );
 };
