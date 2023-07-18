@@ -6,7 +6,7 @@ import AuthContext from '../store/authContext'
 
 //material UI 
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 const Form = () => {
     const {token, userId} = useContext(AuthContext)
@@ -32,24 +32,31 @@ const Form = () => {
 
     return (
         <main>
-            
+            <Box p={5}>
             <form className='form add-card-form' onSubmit={handleSubmit}>
-                <TextField id="outlined-basic"
+                <Box pt={3}>
+                <TextField
                     type='text'
                     placeholder='question'
                     value={question}
                     onChange={e => setQuestion(e.target.value)}
                     
                 />
-                <TextField id="outlined-basic"
+                </Box>
+                <Box pt={3}>
+                <TextField 
                     type='text'
                     placeholder='answer'
                     value={answer}
                     onChange={e => setAnswer(e.target.value)}
                     
                 />
-                <Button variant="2">Add card</Button>
+                </Box>
+                <Box pt={3}>
+                <Button  variant="2">Add card</Button>
+                </Box>
             </form>
+            </Box>
         </main>
     )
 }

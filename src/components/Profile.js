@@ -10,6 +10,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Box, Divider, Grid } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 const Profile = () => {
   const { userId, token } = useContext(AuthContext);
@@ -82,16 +84,20 @@ const Profile = () => {
 
   const mappedCards = cards.map((card) => {
     return (
-      <Card variant="outlined" sx={{ minWidth: 275 }} key={card.id}>
+      <Box sx={{ flexGrow: 1 }} p={5} pb={0}>
+        <Grid container spacing={1}>
+       <Grid xs={4} > 
+      <Card variant="outlined" key={card.id}>
         <CardContent>
-        <Typography variant="h3">Question: </Typography>
-        <Typography variant="h3">{card.question}</Typography>
-        <Typography variant="h3">Answer: </Typography>
-        <Typography variant="h3">{card.answer}</Typography>
+        <Typography variant="h6">Question: </Typography>
+        <Typography variant="h5">{card.question}</Typography>
+        
+        <Typography variant="h6">Answer: </Typography>
+        <Typography variant="h5">{card.answer}</Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={(e) => showForm(card, e)}>
-            edit card
+            Edit
           </Button>
           <Button size="small"
             onClick={() => deleteCard(card.id)}
@@ -100,17 +106,16 @@ const Profile = () => {
           </Button>
         </CardActions>
       </Card>
+      </Grid>  
+      </Grid>
+      </Box>
     );
   });
 
   return (
     <main>
-      <Typography variant="h1">Dashboard</Typography>
-      <Typography variant="h2">Showing all all cards</Typography>
       { isModalOpen && <Editmodal selectedCard={selectedCard} closeModal={closeModal} updateCard={updateCard} />}
       {mappedCards}
-      
-      
     </main>
   );
 };

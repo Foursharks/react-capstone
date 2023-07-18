@@ -96,18 +96,18 @@ const Study = () => {
         <Typography variant="h2">Question:</Typography>
         <Typography variant="h3">{card.question}</Typography>
         <Button variant="2" onClick={() => setShow(!show)}>
-          show answer
+          Show Answer
         </Button>
 
         {show && (
           <div>
             <p>{card.answer}</p>
-            <button onClick={(e) => updateCorrects(card, e)}>
-              I got this correct
-            </button>
-            <button onClick={(e) => updateIncorrects(card, e)}>
-              I got this incorrect
-            </button>
+            <Button size="small" onClick={(e) => updateCorrects(card, e)}>
+              Correct 
+            </Button>
+            <Button size="small"  onClick={(e) => updateIncorrects(card, e)}>
+              Incorrect
+            </Button>
           </div>
         )}
       </div>

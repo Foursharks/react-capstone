@@ -1,5 +1,8 @@
 import {useState, useContext} from 'react'
 import axios from 'axios'
+// material ui
+import { Modal, Box, Button } from '@mui/material';
+
 // shows a modal with two fields, question, and answer, and allows user to update them 
 
 const Editmodal = ({selectedCard, closeModal, updateCard}) => {
@@ -33,9 +36,9 @@ const Editmodal = ({selectedCard, closeModal, updateCard}) => {
             className="form-input add-card-input"
             onChange={(e) => setAnswer(e.target.value)}
           />
-          <button className="form-btn">Update</button>
+          <Button className="form-btn">Update</Button>
         </form>
-        <button onClick={closeModal}>Close</button>
+        <Button onClick={closeModal}>Close</Button>
       </div>
     </div>
   );
