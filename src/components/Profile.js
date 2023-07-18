@@ -37,9 +37,10 @@ const Profile = () => {
   }, [getUserCards]);
 
   const updateCard = (question, answer, cardId) => {
+    console.log(question, answer, cardId)
     axios
       .put(
-        `http://localhost:5052/cards/${cardId}`,
+        `http://localhost:5050/cards/${cardId}`,
         { question, answer },
         {
           headers: {
@@ -57,7 +58,7 @@ const Profile = () => {
 
   const deleteCard = (id) => {
     axios
-      .delete(`http://localhost:5052/cards/${id}`, {
+      .delete(`http://localhost:5050/cards/${id}`, {
         headers: {
           authorization: token,
         },
@@ -83,9 +84,9 @@ const Profile = () => {
     return (
       <Card variant="outlined" sx={{ minWidth: 275 }} key={card.id}>
         <CardContent>
-        <Typography variant="h2">Question: </Typography>
+        <Typography variant="h3">Question: </Typography>
         <Typography variant="h3">{card.question}</Typography>
-        <Typography variant="h2">Answer: </Typography>
+        <Typography variant="h3">Answer: </Typography>
         <Typography variant="h3">{card.answer}</Typography>
         </CardContent>
         <CardActions>
@@ -105,8 +106,7 @@ const Profile = () => {
   return (
     <main>
       <Typography variant="h1">Dashboard</Typography>
-      <Typography variant="h3">Status of how many cards you created</Typography>
-      <Typography variant="h2">View all cards</Typography>
+      <Typography variant="h2">Showing all all cards</Typography>
       { isModalOpen && <Editmodal selectedCard={selectedCard} closeModal={closeModal} updateCard={updateCard} />}
       {mappedCards}
       

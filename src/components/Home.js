@@ -1,4 +1,10 @@
 import { useState, useEffect, useContext } from "react";
+import herohome from '../assets/homescreen_happystudent.png'
+import herohome2 from '../assets/homescreen_happystudent2.png'
+
+// material UI 
+import { Typography } from "@mui/material";
+import {Divider, Chip}  from "@mui/material";
 // import axios from 'axios'
 
 // import AuthContext from '../store/authContext'
@@ -37,8 +43,14 @@ const Home = () => {
 
   return (
     <main>
-      <h1>Welcome! home.js </h1>
-      <span>Get started by logging in or signing up</span>
+      
+      <Typography variant="h1">Get started by logging in or signing up</Typography>
+      <span></span>
+      <Divider>
+        <Chip label="Learn More" />
+      </Divider>
+      <img src={herohome} alt='study-greek' className='logo'/>
+      <img src={herohome2} alt='study-greek' className='logo'/>
     </main>
   );
 };

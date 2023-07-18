@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../store/authContext";
 
 //material ui
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 // This should show a bunch of cards, one at a time, that have less than 5 correct markings, in order of most incorrects. The cards should show the question, and a "show answer" button. "show answer" should show the answer. Then buttons should be displayed "correct" and "incorrect".
 // If the person selects "correct" it should update the cards table to increment 1 in the correct column, if the person selects "incorrect" it should increment 1 in the incorrect column of the cards table.
@@ -32,11 +31,30 @@ const Study = () => {
     getUserCards();
   }, [getUserCards]);
 
-  const updateCard = (id) => {
+  // const updateCard = (id) => {
+  //   axios
+  //     .put(
+  //       `http://localhost:5052/cards/${id}`,
+  //       { corrects, incorrects },
+  //       {
+  //         headers: {
+  //           authorization: token,
+  //         },
+  //       }
+  //     )
+  //     .then(() => {
+  //       getUserCards();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const updateCorrects = (card, e) => {
     axios
       .put(
-        `http://localhost:5052/cards/${id}`,
-        { corrects, incorrects },
+        `http://localhost:5052/cards/${card.id}`,
+        { corrects: card.corrects + 1 },
         {
           headers: {
             authorization: token,
@@ -51,39 +69,56 @@ const Study = () => {
       });
   };
 
-  const updateCorrects = (card, e) => {
-    setCorrects(corrects+1)
-  };
-
   const updateIncorrects = (card, e) => {
-    setIncorrects(incorrects+1)
+    axios
+      .put(
+        `http://localhost:5052/cards/${card.id}`,
+        { incorrects: card.incorrects + 1 },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      )
+      .then(() => {
+        getUserCards();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const showAnswer = (card, e) => {
+  const CardComponent = ({ card }) => {
+    const [show, setShow] = useState(false);
+
     return (
-      <div>
-        <p>{card.answer}</p>
-        <button onClick={(e) => updateCorrects(card, e)}>
-          I got this correct
-        </button>
-        <button onClick={(e) => updateIncorrects(card, e)}>
-          I got this incorrect
-        </button>
+      <div key={card.id} className="post-card">
+        <Typography variant="h2">Question:</Typography>
+        <Typography variant="h3">{card.question}</Typography>
+        <Button variant="2" onClick={() => setShow(!show)}>
+          show answer
+        </Button>
+
+        {show && (
+          <div>
+            <p>{card.answer}</p>
+            <button onClick={(e) => updateCorrects(card, e)}>
+              I got this correct
+            </button>
+            <button onClick={(e) => updateIncorrects(card, e)}>
+              I got this incorrect
+            </button>
+          </div>
+        )}
       </div>
     );
   };
-// show cards that have a value of less than 5 in the corrects column of database
-  const showCard = cards.filter((card) => card.corrects < 5).map((card) => {
-      return (
-        <div key={card.id} className="post-card">
-          <Typography variant="h2">Question:</Typography>
-          <Typography variant="h3">{card.question}</Typography>
-          <Button variant="2" onClick={(e) => showAnswer(card, e)}>show answer</Button>
-        </div>
-      );
-    });
 
-  return <main>{showCard}{showAnswer} </main>;
+  // show cards that have a value of less than 5 in the corrects column of database
+  const showCard = cards
+    .filter((card) => card.corrects < 5)
+    .map((card) => <CardComponent card={card} />);
+  return <main>{showCard}</main>;
 };
 
 export default Study;

@@ -32,9 +32,13 @@ module.exports = {
 
     editCard: async (req, res) => {
         try {
-            const {id} = req.params
-            await Card.update({question, answer, 
-                where: {id: +id} })
+            const {id} = req.params; 
+            const{question, answer, corrects, incorrects} =req.body; 
+            await Card.update({question: question, answer: answer, corrects: corrects, incorrects:incorrects}, {
+                where: {
+                    id: +id
+                }
+             });
             res.sendStatus(200)
         } catch (error) {
             console.log('ERROR IN update/edit card')

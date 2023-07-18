@@ -5,6 +5,8 @@ import { AppBar, Typography } from '@mui/material';
 import AuthContext from '../store/authContext'
 import logo from '../assets/study-greek-logo.png'
 
+
+
 //material UI 
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
@@ -21,6 +23,7 @@ const Header = () => {
     
     return (
         <AppBar position="static">
+            
             <div>
                 <img src={logo} alt='study-greek-logo' className='logo'/>
                 <Typography variant="h2"> Welcome! </Typography><h2></h2>
